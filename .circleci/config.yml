@@ -57,6 +57,7 @@ jobs:
   test-backend:
     docker:
       # Docker image here
+      - image: ubuntu-latest
     steps:
       - checkout
       - restore_cache:
@@ -75,3 +76,4 @@ workflows:
       - build-frontend
       - build-backend
       - test-frontend
+      - test-backend
