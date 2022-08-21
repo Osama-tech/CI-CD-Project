@@ -41,7 +41,7 @@ jobs:
   test-frontend:
     docker:
       # Docker image here ???
-      - image: ubuntu-latest
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -57,7 +57,7 @@ jobs:
   test-backend:
     docker:
       # Docker image here
-      - image: ubuntu-latest
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
