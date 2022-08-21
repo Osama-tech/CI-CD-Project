@@ -29,7 +29,7 @@ jobs:
       - run:
           name: Back-end build
           command: |
-             # Your code here ???? not sure 
+             # Your code here  
              cd backend
              npm install
              npm run build
@@ -38,8 +38,40 @@ jobs:
           paths: [backend/node_modules]
           key: backend-build
 
+  test-frontend:
+    docker:
+      # Docker image here ???
+      - image: ubuntu-latest
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [frontend-test]
+      - run:
+          name: front-end test
+          command: |
+             cd frontend
+             npm install
+             npm run test
+      # Your job code here
+                
+  test-backend:
+    docker:
+      # Docker image here
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [backend-test]
+      - run:
+          name: back-end test
+          command: |
+             cd backend
+             npm install
+             npm run test
+      # Your job code here
+
 workflows:
   default:
     jobs:
       - build-frontend
       - build-backend
+      - test-frontend
