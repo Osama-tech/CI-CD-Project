@@ -40,7 +40,6 @@ jobs:
 
   test-frontend:
     docker:
-      # Docker image here ???
       - image: circleci/node:13.8.0
     steps:
       - checkout
@@ -52,11 +51,9 @@ jobs:
              cd frontend
              npm install
              npm run test
-      # Your job code here
                 
   test-backend:
     docker:
-      # Docker image here
       - image: circleci/node:13.8.0
     steps:
       - checkout
@@ -68,7 +65,34 @@ jobs:
              cd backend
              npm install
              npm run test
-      # Your job code here
+
+  scan-frontend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [frontend-scan]
+      - run:
+          name: front-end test
+          command: |
+             cd frontend
+             npm install
+             npm audit --audit-level=critical
+
+  scan-backend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [backend-test]
+      - run:
+          name: back-end test
+          command: |
+             cd frontend
+             npm install
+             npm audit --audit-level=critical
 
 workflows:
   default:
@@ -81,3 +105,10 @@ workflows:
       - test-backend:
           requires:
             - build-backend
+      - scan-frontend:
+          requires: 
+            - build-frontend
+      - scan-backend:
+          requires: 
+            - build-backend
+      
