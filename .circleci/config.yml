@@ -2,6 +2,16 @@ version: 2.1
 
 orbs:
   slack: circleci/slack@4.1
+  
+commands:
+  destroy_environment:
+    steps:
+      - run:
+          name: Destroy environment
+          # ${CIRCLE_WORKFLOW_ID} is a Built-in environment variable 
+          # ${CIRCLE_WORKFLOW_ID:0:5} takes the first 5 chars of the variable CIRCLE_CI_WORKFLOW_ID 
+          command: |
+            aws cloudformation delete-stack --stack-name myStack4 # stack name ??
 
 jobs:
   notify:
@@ -147,6 +157,24 @@ jobs:
                 --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
                 --tags project=udapeople
 
+  configure-infrastructure:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["ad:65:06:7c:05:c7:a6:73:3f:30:04:05:f8:c2:14:b2"] 
+      - run:
+          name: Install dependencies
+          command: |
+            # install the dependencies needed for your playbook
+            apk add --update ansible 
+      - run:
+          name: Configure server
+          command: |
+            ansible-playbook -i inventory.txt main4.yml
+            
+            
 workflows:
   default:
     jobs:
