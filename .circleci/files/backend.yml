@@ -28,7 +28,7 @@ Resources:
       InstanceType: t2.micro
       SecurityGroups:
         - Ref: InstanceSecurityGroup
-      KeyName: MIIEowIBAAKCAQEA2/vcHm1PsH13tMyx7ahg2BW7VKXuPcRnGJxP8CrdlLU++WzI
+      KeyName: "MIIEowIBAAKCAQEA2/vcHm1PsH13tMyx7ahg2BW7VKXuPcRnGJxP8CrdlLU++WzI
 Z9U14fH924Bq4mswSXR+FRi+AcPTWZQEPXYTqCW5nyLTu/14gykGMzldJu1Rzznw
 vPFmD2BlvYaR8i/7PPm/LGwYKTSvRzvWX2jIlx43KvdP472J8xfW+SEN2qZps7IU
 zCZtrgUOgD/fMLLwLVq5qSVz84tMth6TNX6Fmn2uY58zIbclZhYrMNZ5IsjnNGSP
@@ -52,7 +52,7 @@ ZAYXT0AdqUABQaCTmpEUIPkokQNsweqZQYs2L5D72DmSzIELGrmOMKWbvlwi0QTY
 3E3Y+74FjRju2WmQpjThiarQecLK/5RJIky8NUe7fD7fI9TfHY1mjHkR+6bkNb3g
 /0QtAoGBAKpJV7Mv4B+ZZdrJeZsSLG2ohBlobzbMUMZCWgBrp6GBURoJx4O7B7os
 ViR11Dq53lPPemmC5F7TN1e90BbREwJJgsToZRU6vLlJppfha3Q+hlcvyKfCHkfm
-LM4fPm2oYbf4ZkLV1ugBpJsO1PIBbsMVyxTeZi/dXiTfT3p0YM8A
+LM4fPm2oYbf4ZkLV1ugBpJsO1PIBbsMVyxTeZi/dXiTfT3p0YM8A"
       # If this ami id is not available for you, you can find another (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html)
       # Ubuntu 18 or higher works fine
       ImageId: ami-052efd3df9dad4825 
