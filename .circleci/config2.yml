@@ -125,6 +125,15 @@ jobs:
               # --stack-name "your front-end stack name with workflow id" \
               # --parameter-overrides ID="your workflow id"  
               exit 1
+              
+      - run:
+          name: send Ec2 ip to inventory
+          command: |
+             aws ec2 describe-instances \
+\
+                     --query 'Reservations[*].Instances[*].PublicIpAddress' \
+                   --output text >> .circleci/ansible/inventory.txt
+          
       - run:
           name: Add back-end ip to ansible inventory
           command: |
