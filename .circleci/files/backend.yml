@@ -28,31 +28,7 @@ Resources:
       InstanceType: t2.micro
       SecurityGroups:
         - Ref: InstanceSecurityGroup
-      KeyName: 'MIIEowIBAAKCAQEA2/vcHm1PsH13tMyx7ahg2BW7VKXuPcRnGJxP8CrdlLU++WzI
-Z9U14fH924Bq4mswSXR+FRi+AcPTWZQEPXYTqCW5nyLTu/14gykGMzldJu1Rzznw
-vPFmD2BlvYaR8i/7PPm/LGwYKTSvRzvWX2jIlx43KvdP472J8xfW+SEN2qZps7IU
-zCZtrgUOgD/fMLLwLVq5qSVz84tMth6TNX6Fmn2uY58zIbclZhYrMNZ5IsjnNGSP
-EQrAuJTCm80nhm7giXP1vpTMIQBp1pgPPokWdwtcC/m3CJidiFXzN/xWqy28CAhI
-BrlSaP2ughqJwdQaQrkhhHdOvA2nkVFeADq76wIDAQABAoIBADnKi8ROkU3bWFRe
-Jiw6PN7nrqQJR3Jgo3j6r6F3kWicyON76ZYllBc8nKVKskmzQSc6/FiMfHY4PNDe
-qtJ+r6FP79jXrGpJp5xFbcSNQGSWmhRns0/f1yEZAQFuVe8bHdSiA9AmwZ4pohaD
-qMi93Vyd6n5WJF2/EHuVertOLLaQ3nk9r1sstQ8VL6XLIUdLUGzvU1cZ0mO7/4os
-Sby/xjPL2pj79Qmh0QbG2AmxECNWZbN0RQBy5z82jteaiY6fcoRyyIEdiGodnTSP
-Ttex7YWaBmLT8NMj92Iazsr09JHDiVi2LAGe5Koi6YOhXRfa/rQ/1pUQXO49aTxU
-ER2iOfkCgYEA+ss88KFOrG9Q7YguLRvFo/MDq2W2Wy0uaa3PqMoFKCMyxEYST7m/
-4Sgj21BWjBVjUy42RYv2c90rj9YX1nURc5cW/tfKwg+BfBcAYQilGIdxOvxE8UqQ
-VlNKjG3Wkra7Blnhm74RSHE39lSueAgKuYuCePCRdTELXBAvjqK9IE8CgYEA4Izk
-SxEag2hkifWiR+zrovhXFNRFTrntM5cc6Zn6DqbT/HdZ24RLJddDUjuwn+QY+PFC
-shFxvd/y6hcQ4LNCQf3eBz58dbIQ5KVe62GyukYlgvYRLHigeD6DZWU8NbjSXEi0
-9XjknHEy96Ut2LMjjNQUwndV1BeLwIM9LWLxR6UCgYAWYAGM2mdhfQD0YDz2a07j
-xK+kIAv38Hz+krI/Nd7l6NYDqtjBYiobVXB1haJjFxlod2wCIm2Xgrj7OTehO4qW
-DHnRvMDrNWTxBEBVZ+cK3DKe95jTCjr8aKvzAW2uYz0mYOh+86MpGmjKwl1aeiUy
-zp6SWawwj3KbARqtGBnVgwKBgFMsfMc9X5e7DDp5rJF9tU5ZNFA3zDA7+Bt65q+0
-ZAYXT0AdqUABQaCTmpEUIPkokQNsweqZQYs2L5D72DmSzIELGrmOMKWbvlwi0QTY
-3E3Y+74FjRju2WmQpjThiarQecLK/5RJIky8NUe7fD7fI9TfHY1mjHkR+6bkNb3g
-/0QtAoGBAKpJV7Mv4B+ZZdrJeZsSLG2ohBlobzbMUMZCWgBrp6GBURoJx4O7B7os
-ViR11Dq53lPPemmC5F7TN1e90BbREwJJgsToZRU6vLlJppfha3Q+hlcvyKfCHkfm
-LM4fPm2oYbf4ZkLV1ugBpJsO1PIBbsMVyxTeZi/dXiTfT3p0YM8A'
+      KeyName: Ci-Cd-EC2
       # If this ami id is not available for you, you can find another (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html)
       # Ubuntu 18 or higher works fine
       ImageId: ami-052efd3df9dad4825 
