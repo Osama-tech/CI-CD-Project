@@ -137,9 +137,9 @@ jobs:
   deploy-infrastructure:
     docker:
       - image: amazon/aws-cli
-        aws_auth:
-              aws_access_key_id: ASIAR37XAEWFQT5W3KE3
-              aws_secret_access_key: j98OT2F26HB5fWnk3wHDD6NSDxAtoOwJFDs6lGID
+       # aws_auth:
+        #      aws_access_key_id: ASIAR37XAEWFQT5W3KE3
+         #     aws_secret_access_key: j98OT2F26HB5fWnk3wHDD6NSDxAtoOwJFDs6lGID
               
     steps:
       - checkout
