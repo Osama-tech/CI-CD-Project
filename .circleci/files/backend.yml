@@ -28,7 +28,7 @@ Resources:
       InstanceType: t2.micro
       SecurityGroups:
         - Ref: InstanceSecurityGroup
-      KeyName: #ad:65:06:7c:05:c7:a6:73:3f:30:04:05:f8:c2:14:b2
+      KeyName: ad:65:06:7c:05:c7:a6:73:3f:30:04:05:f8:c2:14:b2
       # If this ami id is not available for you, you can find another (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html)
       # Ubuntu 18 or higher works fine
       ImageId: #ami-052efd3df9dad4825 
