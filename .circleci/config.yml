@@ -158,17 +158,12 @@ jobs:
                 --tags project=udapeople
                 
       - run:
-         name: send Ec2 ip to inventory
+         name: Add the EC2 instance IP to the Ansible inventory
          command: |
             aws ec2 describe-instances \
                     --query 'Reservations[*].Instances[*].PublicIpAddress' \
                   --output text >> .circleci/ansible/inventory.txt
           
-      - run:
-          name: Add back-end ip to ansible inventory
-          command: |
-            # Your code here
-            exit 1
       - persist_to_workspace:
           root: ~/
           paths:
