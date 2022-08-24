@@ -143,7 +143,7 @@ jobs:
       - run: 
           name: install tar & gzip
           command: |
-            apt install sudo
+            apt-get install sudo
             sudo apt update
             sudo yum install tar
             sudo yum update tar
