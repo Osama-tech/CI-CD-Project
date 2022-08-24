@@ -143,12 +143,8 @@ jobs:
       - run: 
           name: install tar & gzip
           command: |
-            #yum install sudo
-            #sudo apt update
-            #yum load-transaction /tmp/yum_save_tx.2022-08-24.04-50.qUqC8n.yumtx
             yum -y install tar
-            yum -y update tar
-            #sudo apt install gzip
+            yum -y update gzip
 
             
       - run:
