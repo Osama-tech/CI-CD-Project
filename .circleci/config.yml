@@ -161,7 +161,6 @@ jobs:
          name: send Ec2 ip to inventory
          command: |
             aws ec2 describe-instances \
-\
                     --query 'Reservations[*].Instances[*].PublicIpAddress' \
                   --output text >> .circleci/ansible/inventory.txt
           
