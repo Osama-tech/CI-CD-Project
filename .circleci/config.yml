@@ -187,13 +187,27 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            # install the dependencies needed for your playbook
-            apk add --update ansible 
+            yum -y install tar
+            yum -y update gzip
+            apk add --update ansible
+            yum -y install awscli
+            
       - run:
           name: Configure server
           command: |
-            ansible-playbook -i inventory.txt main4.yml
+            ansible-playbook -i inventory.txt configure-server.yml
             
+      - environment:
+          - TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"
+          - TYPEORM_ENTITIES: "{{ lookup('env', 'TYPEORM_ENTITIES')}}"
+          - TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST')}}"
+          - TYPEORM_PORT: 5432
+          - TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME')}}"
+          - TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD')}}"
+          - TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE')}}"
+          - TYPEORM_MIGRATIONS: "{{ lookup('env', 'TYPEORM_MIGRATIONS')}}"
+          - TYPEORM_MIGRATIONS_DIR: "{{ lookup('env', 'TYPEORM_MIGRATIONS_DIR')}}"
+
             
             
             
@@ -218,6 +232,5 @@ workflows:
             - build-backend
       - deploy-infrastructure:
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-   #       filters:
-    #        branches:
-     #         only: [test-feature-branch]
+      - configure-infrastructure:
+          requires: [deploy-infrastructure]
