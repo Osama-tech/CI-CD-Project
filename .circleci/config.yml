@@ -139,6 +139,16 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
+      
+      - run: 
+          name: install tar & gzip
+          command: |
+            sudo apt update
+            sudo yum install tar
+            sudo yum update tar
+            sudo apt install gzip
+
+            
       - run:
           name: Ensure back-end infrastructure exists
           command: |
@@ -190,15 +200,6 @@ jobs:
             ansible-playbook -i inventory.txt main4.yml
             
             
-            
-      - run:
-          name: Ensure front-end infrastructure exist
-          command: |
-            aws cloudformation deploy \
-                --template-file .circleci/files/frontend.yml \
-                --stack-name "ci-cd-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
-                --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
-                --tags project=udapeople
             
             
 workflows:
