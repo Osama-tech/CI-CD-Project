@@ -197,9 +197,9 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apt install tar
-            apt install gzip
-            #apk add --update ansible
+            #apt install tar
+            #apt install gzip
+            apk add --update ansible
             #yum -y install awscli
             
       - run:
