@@ -146,7 +146,7 @@ jobs:
           name: install tar & gzip
           command: |
             yum -y install tar
-            yum -y update gzip
+            yum -y install gzip
 
             
 #       - run:
@@ -198,7 +198,7 @@ jobs:
           name: Install dependencies
           command: |
             yum -y install tar
-            yum -y update gzip
+            yum -y install gzip
             apk add --update ansible
             yum -y install awscli
             
