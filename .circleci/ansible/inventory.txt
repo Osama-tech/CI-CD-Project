@@ -1,1 +1,2 @@
 [web]
+ec2-3-82-192-245.compute-1.amazonaws.com
