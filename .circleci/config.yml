@@ -200,7 +200,7 @@ jobs:
             yum -y install tar
             yum -y install gzip
             #apk add --update ansible
-            yum -y install awscli
+            #yum -y install awscli
             
       - run:
           name: Configure server
