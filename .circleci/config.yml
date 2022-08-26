@@ -207,10 +207,10 @@ jobs:
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
               
-
+              
   run-migrations:
     docker:
-      # Docker image here that supports NodeJS
+      - image: nodejs:3.8-alpine3.11
     steps:
       - checkout
       - run:
@@ -231,8 +231,37 @@ jobs:
                 curl https://kvdb.io/2W871p1cJ4jp6tXqdY8KWL/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
             
-     # Here's where you will add some code to rollback on failure                     
+     # Here's where you will add some code to rollback on failure   
+     
+     
+  deploy-frontend:
+    docker:
+      - image: amazon/aws-cli
+      #attach work space
+    steps:
+      # Checkout code from git
+      - run:
+          name: Install dependencies
+          command: |
+            yum -y install python
+            yum -y install ansible
+            yum -y install node
+            yum -y install npm
+            yum -y install aws_cli
             
+      - run:
+          name: Get backend url
+          command: |
+            # your code here
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}"
+      - run:
+          name: Deploy frontend objects
+          command: |
+            # your code here
+      # Here's where you will add some code to rollback on failure      
+                    
+                    
 workflows:
   default:
     jobs:
