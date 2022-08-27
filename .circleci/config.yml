@@ -210,7 +210,7 @@ jobs:
               
   run-migrations:
     docker:
-      - image: nodejs:3.8-alpine3.11
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - run:
