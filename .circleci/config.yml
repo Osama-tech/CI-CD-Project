@@ -210,7 +210,7 @@ jobs:
               
   run-migrations:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/node:18.8.0
     steps:
       - checkout
       - run:
