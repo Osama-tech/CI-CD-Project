@@ -220,10 +220,11 @@ jobs:
             cd backend
             npm install
             # Run and save the migration output
-            npm audit fix --force
+            npm audit fix 
             npm run migrations > migrations_dump.txt
       - run:
           name: Send migration results to memstash
+          
           command: |
             if grep -q "has been executed successfully." ~/backend/migrations_dump.txt ## ~/project/backend/migrations_dump.txt
             then
