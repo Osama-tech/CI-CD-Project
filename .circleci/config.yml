@@ -210,7 +210,7 @@ jobs:
               
   run-migrations:
     docker:
-      - image: cimg/node:18.8.0
+      - image: node:3.8-alpine.11 #cimg/node:18.8.0
     steps:
       - checkout
       - run:
