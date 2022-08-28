@@ -218,9 +218,11 @@ jobs:
           command: |
             cd backend
             #npm install urix
-            RUN npm install
+            #RUN npm install
             # Run and save the migration output
-            npm audit fix 
+            npm audit fix
+            npm install
+            npm audit
             npm run migrations > migrations_dump.txt
       - run:
           name: Send migration results to memstash
