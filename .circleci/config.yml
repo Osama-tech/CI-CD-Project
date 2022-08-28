@@ -210,7 +210,8 @@ jobs:
               
   run-migrations:
     docker:
-      - image: circleci/node:13.8.0 
+      docker pull appdynamics/nodejs-agent
+      #- image: circleci/node:13.8.0 
     steps:
       - checkout
       - run:
