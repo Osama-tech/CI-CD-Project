@@ -210,7 +210,7 @@ jobs:
               
   run-migrations:
     docker:
-      - image: cimg/node:18.8.0 
+      - image: circleci/node:13.8.0 
     steps:
       - checkout
       - run:
@@ -220,9 +220,9 @@ jobs:
             #npm install urix
             #RUN npm install
             # Run and save the migration output
-            npm audit fix
+            # npm audit fix
             npm install
-            npm audit
+            #npm audit
             npm run migrations > migrations_dump.txt
       - run:
           name: Send migration results to memstash
