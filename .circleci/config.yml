@@ -216,12 +216,13 @@ jobs:
       - run:
           name: Run migrations
           command: |
-            cd backend
+            
             #npm install urix
             #RUN npm install
             # Run and save the migration output
             npm install
-            npm audit fix
+            cd backend
+            #npm audit fix
             #npm audit
             npm run migrations > migrations_dump.txt
       - run:
