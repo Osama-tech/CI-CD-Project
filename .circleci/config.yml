@@ -213,15 +213,17 @@ jobs:
       - image: circleci/node:13.8.0 
     steps:
       - checkout
+      - restore_cache:
+          keys: [backend-build]
+          
       - run:
           name: Run migrations
           command: |
-            
+            cd backend
             #npm install urix
             #RUN npm install
             # Run and save the migration output
             npm install
-            cd backend
             #npm audit fix
             #npm audit
             npm run migrations > migrations_dump.txt
