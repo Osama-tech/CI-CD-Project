@@ -235,14 +235,15 @@ jobs:
   deploy-frontend:
     docker:
       - image: amazon/aws-cli
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - project/.circleci/ansible/inventory.txt
+      
       #attach work space
     steps:
       # Checkout code from git
       - checkout
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/.circleci/ansible/inventory.txt
       - run:
           name: Install dependencies
           command: |
