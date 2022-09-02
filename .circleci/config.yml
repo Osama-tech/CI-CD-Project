@@ -219,8 +219,8 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            npm fund
             npm install
+            npm fund
             npm audit fix
             npm run migrations > migrations_dump.txt
       - run:
