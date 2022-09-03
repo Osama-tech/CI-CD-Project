@@ -257,7 +257,7 @@ jobs:
           name: Install node
           command: |
          #   yum install nodejs -y
-            yum update
+         #   yum update
             yum install epel-release
             yum install nodejs
             node --version
