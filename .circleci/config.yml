@@ -249,9 +249,9 @@ jobs:
             yum -y install python
             
       #- run:
-     #     name: install ansible 
+      #    name: install ansible 
       #    command: |
-     #       yum -y install ansible
+      #      yum -y install ansible
      
       - run:
           name: do install node
