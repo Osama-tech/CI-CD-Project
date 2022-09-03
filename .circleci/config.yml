@@ -247,6 +247,10 @@ jobs:
           name: Install dependencies
           command: |
             yum -y install python
+            yum update
+            yum install epel-release
+            yum install nodejs
+            node --version
             
       #- run:
       #    name: install ansible 
