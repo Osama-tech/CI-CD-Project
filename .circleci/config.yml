@@ -257,14 +257,7 @@ jobs:
       #    command: |
       #      yum -y install ansible
      
-      - run:
-          name: do install node
-          command: |
-         #   yum install nodejs -y
-            yum update
-            yum install epel-release
-            yum install nodejs
-            node --version
+      
       - run:
           name: Install npm
           command: |
