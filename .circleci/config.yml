@@ -247,6 +247,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
+            yum -y install tar 
             yum -y install python
             yum -y install ansible
             yum -y install node
