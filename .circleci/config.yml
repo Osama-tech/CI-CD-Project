@@ -248,7 +248,7 @@ jobs:
           name: Install dependencies
           command: |
             yum -y install python
-            yum -y install ansible
+            #yum -y install ansible
             yum -y install node
             yum -y install npm
             yum -y install aws_cli
