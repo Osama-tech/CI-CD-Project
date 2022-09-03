@@ -253,8 +253,9 @@ jobs:
      #     name: install ansible 
       #    command: |
      #       yum -y install ansible
+     
       - run:
-          name: Install node
+          name: install node
           command: |
          #   yum install nodejs -y
          #   yum update
