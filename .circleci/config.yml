@@ -239,11 +239,11 @@ jobs:
       #attach work space
     steps:
       # Checkout code from git
-      - checkout
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - project/.circleci/ansible/inventory.txt
+      - checkout   
+      - restore_cache:
+          keys: [frontend-scan]
+         
+            
       - run:
           name: Install dependencies
           command: |
