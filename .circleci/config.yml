@@ -231,26 +231,26 @@ jobs:
                 # Here's where you will add some code to rollback on failure   
      
      
-  deploy-frontend:
-    docker:
-      - image: amazon/aws-cli
+ # deploy-frontend:
+ #   docker:
+ #     - image: cimg/node:13.8.0 # amazon/aws-cli
       
       #attach work space
-    steps:
+ #   steps:
       # Checkout code from git
-      - checkout   
-      - restore_cache:
-          keys: [run-migrations]
+ #     - checkout   
+ #     - restore_cache:
+ #         keys: [run-migrations]
          
             
-      - run:
-          name: Install dependencies
-          command: |
-            yum -y install python
+ #     - run:
+ #         name: Install dependencies
+ #         command: |
+ #           yum -y install python
             
-            yum install epel-release
-            yum repolist
-            yum install ansible
+ #           yum install epel-release
+ #           yum repolist
+ #           yum install ansible
             
       #- run:
       #    name: install ansible 
@@ -261,29 +261,63 @@ jobs:
       #       yum install nodejs
       #       node --version
       
-      - run:
-          name: Install npm
-          command: |
+  #    - run:
+  #        name: Install npm
+  #        command: |
             
-            yum -y install npm
-      - run:
-          name: Install aws
-          command: |
-            yum -y install aws_cli
+  #          yum -y install npm
+  #    - run:
+  #        name: Install aws
+  #        command: |
+  #          yum -y install aws_cli
             
+  #    - run:
+  #        name: Get backend url
+  #        command: |
+            # your code here
+  #          export API_URL="http://${BACKEND_IP}:3030"
+  #          echo "${API_URL}"
+  #    - run:
+  #        name: Deploy frontend objects
+  #        command: |
+  #          # your code here
+      # Here's where you will add some code to rollback on failure      
+                    
+               
+  deploy-frontend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - install_cli
+      - install_nodejs
+      - restore_cache:
+          keys: [backend-dependencies-ck]
+      - run:
+          name: Install dependencies
+          command: |
+           cd frontend
+           npm install
       - run:
           name: Get backend url
           command: |
-            # your code here
-            export API_URL="http://${BACKEND_IP}:3030"
-            echo "${API_URL}"
+            BACKEND_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters “Name=tag:Name, Values=backend-${CIRCLE_WORKFLOW_ID:0:7}” \
+              --query ‘Reservations[*].Instances[*].PublicIpAddress’ \
+              --output text)
+
+              echo “API_URL=http://${BACKEND_PUBLIC_IP}:3030" >> frontend/.env
+              cat frontend/.env
       - run:
           name: Deploy frontend objects
           command: |
-            # your code here
-      # Here's where you will add some code to rollback on failure      
-                    
-                    
+            cd frontend
+            npm run build
+            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+      - destroy-environment
+      - revert-migrations  
+               
+        
 workflows:
   default:
     jobs:
