@@ -290,7 +290,7 @@ jobs:
       - image: cimg/node:13.8.0
     steps:
       - checkout
-      - install_cli
+      - install-cli
       - install_nodejs
       - restore_cache:
           keys: [backend-dependencies-ck]
