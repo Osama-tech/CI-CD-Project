@@ -232,59 +232,7 @@ jobs:
                 # Here's where you will add some code to rollback on failure   
      
      
- # deploy-frontend:
- #   docker:
- #     - image: cimg/node:13.8.0 # amazon/aws-cli
-      
-      #attach work space
- #   steps:
-      # Checkout code from git
- #     - checkout   
- #     - restore_cache:
- #         keys: [run-migrations]
-         
-            
- #     - run:
- #         name: Install dependencies
- #         command: |
- #           yum -y install python
-            
- #           yum install epel-release
- #           yum repolist
- #           yum install ansible
-            
-      #- run:
-      #    name: install ansible 
-      #    command: |
-      #      yum -y install ansible
-      #       yum update
-      #       yum install epel-release
-      #       yum install nodejs
-      #       node --version
-      
-  #    - run:
-  #        name: Install npm
-  #        command: |
-            
-  #          yum -y install npm
-  #    - run:
-  #        name: Install aws
-  #        command: |
-  #          yum -y install aws_cli
-            
-  #    - run:
-  #        name: Get backend url
-  #        command: |
-            # your code here
-  #          export API_URL="http://${BACKEND_IP}:3030"
-  #          echo "${API_URL}"
-  #    - run:
-  #        name: Deploy frontend objects
-  #        command: |
-  #          # your code here
-      # Here's where you will add some code to rollback on failure      
-                    
-               
+ 
   deploy-frontend:
     docker:
       - image: amazon/aws-cli
