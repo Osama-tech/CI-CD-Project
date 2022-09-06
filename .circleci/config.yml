@@ -254,13 +254,18 @@ jobs:
             export API_URL="http://${BACKEND_IP}:3030"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
             cat frontend/.env
-            echo ${API_URL} > ~/api_url.txt
-            cat ~/api_url.txt
+            
+            
       - run:
           name: Deploy frontend objects
           command: |
+#            cd frontend
+#            npm install -D webpack-cli
+#            npm run build
+#            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
+#            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
             cd frontend
-            npm install -D webpack-cli
+            npm install
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
