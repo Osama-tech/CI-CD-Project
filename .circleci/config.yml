@@ -269,7 +269,7 @@ jobs:
           paths:
             - api_url.txt
       - destroy_environment  
-      - revert_migrations 
+      #- revert_migrations 
                      
                
         
