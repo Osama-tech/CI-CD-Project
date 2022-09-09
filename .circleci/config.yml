@@ -13,6 +13,24 @@ commands:
           command: |
             aws cloudformation delete-stack --stack-name ci-cd-backend-${CIRCLE_WORKFLOW_ID:0:7}
             aws cloudformation delete-stack --stack-name ci-cd-frontend-${CIRCLE_WORKFLOW_ID:0:7}
+            
+  cancel_migrations:
+    description: cancel last migration  step if successfully run in the current workflow.
+    steps:
+      - restore_cache:
+          keys: [backend-build]
+      - run:
+          name: Revert migrations
+          when: on_fail
+          command: |
+            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
+            SUCCESS=$(curl --insecure https://kvdb.io/4VnmEQtb22mcDLVUwHnG5q/migration_$\{CIRCLE_WORKFLOW_ID:0:7\})
+            if [[ $SUCCESS == 1 ]];
+            then
+              cd ~/project/backend
+              npm install
+              npm run migrations:revert #revert the successful migration
+            fi          
 
 
 jobs:
@@ -269,7 +287,7 @@ jobs:
           paths:
             - api_url.txt
       - destroy_environment  
-      - revert_migrations 
+      - cancel_migrations 
                      
                
         
