@@ -286,7 +286,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - api_url.txt
+            - project/.circleci/ansible/inventory.txt
       - destroy_environment  
       - cancel_migrations 
                      
