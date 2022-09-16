@@ -5,27 +5,28 @@ orbs:
   
 commands:
   destroy_environment:
-  parameters:
-    workflow_id: 
-      type: string
-    event: 
-      type: string
-  steps:
-    - run:
-        name: Destroy environment << parameters.workflow_id >>
-        when: << parameters.event >>
-        command: |
-          echo "Destroying Environment # << parameters.workflow_id >> 
-          aws cloudformation delete-stack --stack-name ci-cd-backend-${CIRCLE_WORKFLOW_ID:0:7}
-          aws cloudformation delete-stack --stack-name ci-cd-frontend-${CIRCLE_WORKFLOW_ID:0:7}
-            
+    description: Delete the font & back end stacks
+    parameters:
+      workflow_id: 
+        type: string
+      event: 
+        type: string
+    steps:
+      - run:
+          name: Destroy environment << parameters.workflow_id >>
+          when: << parameters.event >>
+          command: |
+            echo "Destroying Environment # << parameters.workflow_id >> 
+            aws cloudformation delete-stack --stack-name ci-cd-backend-${CIRCLE_WORKFLOW_ID:0:7}
+            aws cloudformation delete-stack --stack-name ci-cd-frontend-${CIRCLE_WORKFLOW_ID:0:7}
+
   cancel_migrations:
     description: cancel last migration  step if successfully run in the current workflow.
     parameters:
-    workflow_id: 
-      type: string
-    event: 
-      type: string
+      workflow_id: 
+        type: string
+      event: 
+        type: string
       
     steps:
       - restore_cache:
