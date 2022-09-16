@@ -317,15 +317,11 @@ jobs:
           keys: [backend-build]
       - add_ssh_keys:
           fingerprints: ["c5:65:97:43:aa:db:fe:be:b9:87:24:5e:83:30:da:a6"]
-#       - persist_to_workspace:
-#           root: ~/
-#           paths:
-#             - api_url.txt
-# #             - project/.circleci/ansible/inventory.txt     
-          
-      - attach_workspace:
-          at: ~/
-          
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/.circleci/ansible/inventory.txt     
+
       - run:
           name: Install dependencies
           command: |
@@ -359,17 +355,12 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-#       - persist_to_workspace:
-#           root: ~/
-#           paths:
-#             - project/.circleci/ansible/inventory.txt
-      - attach_workspace:
-          at: ~/
       - run:
           name: Install dependencies
           command: |
             sudo apt-get update -y
             sudo apt-get install -y awscli
+            
       - run:
           name: Backend smoke test.
           command: |
@@ -378,13 +369,14 @@ jobs:
               --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --output text)
             export API_URL="http://${BACKEND_IP}:3030"
-            echo "API_URL: ${API_URL}"
+            echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
             then
                 return 0
             else
                 return 1
             fi
+            
       - run:
           name: Frontend smoke test.
           command: |
