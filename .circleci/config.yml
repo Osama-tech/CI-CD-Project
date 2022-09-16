@@ -277,7 +277,7 @@ jobs:
           name: Deploy frontend objects
           command: |
             cd frontend
-            npm install -D webpack-cli
+            npm install 
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             echo id: ${CIRCLE_WORKFLOW_ID:0:7}
@@ -286,8 +286,13 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
-      - destroy_environment  
+      - destroy_environment:
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+          event: on_fail
+          
       - cancel_migrations 
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+          event: on_fail
                      
   Deploy-Backend:
     docker:
@@ -323,8 +328,13 @@ jobs:
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
             
-      - destroy_environment  
+      - destroy_environment 
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+          event: on_fail
+          
       - cancel_migrations
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+          event: on_fail
       
   smoke-test:
     docker:
