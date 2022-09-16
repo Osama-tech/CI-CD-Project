@@ -289,7 +289,7 @@ jobs:
       - destroy_environment  
       - cancel_migrations 
                      
-  Deploy Backend:
+  Deploy-Backend:
     docker:
       - image: circleci/node:13.8.0 # Docker image here that supports Ansible
     steps:
