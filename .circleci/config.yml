@@ -291,7 +291,7 @@ jobs:
                      
   Deploy Backend:
     docker:
-      image: circleci/node:13.8.0 # Docker image here that supports Ansible
+      - image: circleci/node:13.8.0 # Docker image here that supports Ansible
     steps:
       - checkout
       - restore_cache:
