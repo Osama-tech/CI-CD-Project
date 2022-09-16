@@ -5,17 +5,28 @@ orbs:
   
 commands:
   destroy_environment:
-    steps:
-      - run:
-          name: Destroy environment
-          # ${CIRCLE_WORKFLOW_ID} is a Built-in environment variable 
-          # ${CIRCLE_WORKFLOW_ID:0:5} takes the first 5 chars of the variable CIRCLE_CI_WORKFLOW_ID 
-          command: |
-            aws cloudformation delete-stack --stack-name ci-cd-backend-${CIRCLE_WORKFLOW_ID:0:7}
-            aws cloudformation delete-stack --stack-name ci-cd-frontend-${CIRCLE_WORKFLOW_ID:0:7}
+  parameters:
+    workflow_id: 
+      type: string
+    event: 
+      type: string
+  steps:
+    - run:
+        name: Destroy environment << parameters.workflow_id >>
+        when: << parameters.event >>
+        command: |
+          echo "Destroying Environment # << parameters.workflow_id >> 
+          aws cloudformation delete-stack --stack-name ci-cd-backend-${CIRCLE_WORKFLOW_ID:0:7}
+          aws cloudformation delete-stack --stack-name ci-cd-frontend-${CIRCLE_WORKFLOW_ID:0:7}
             
   cancel_migrations:
     description: cancel last migration  step if successfully run in the current workflow.
+    parameters:
+    workflow_id: 
+      type: string
+    event: 
+      type: string
+      
     steps:
       - restore_cache:
           keys: [backend-build]
@@ -287,11 +298,11 @@ jobs:
           paths:
             - project/.circleci/ansible/inventory.txt
       - destroy_environment:
-#           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
           event: on_fail
           
       - cancel_migrations:
-#           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
           event: on_fail
                      
   Deploy-Backend:
@@ -329,11 +340,11 @@ jobs:
             ansible-playbook -i inventory.txt deploy-backend.yml
             
       - destroy_environment: 
-#           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
           event: on_fail
           
       - cancel_migrations:
-#           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
           event: on_fail
       
   smoke-test:
@@ -369,10 +380,10 @@ jobs:
                 exit 1
               fi
       - destroy_environment:
-#           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
           event: on_fail
       - cancel_migrations:
-#           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
           event: on_fail
       
           
