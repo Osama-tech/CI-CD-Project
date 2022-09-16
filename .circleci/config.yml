@@ -355,10 +355,12 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - project/.circleci/ansible/inventory.txt
+#       - persist_to_workspace:
+#           root: ~/
+#           paths:
+#             - project/.circleci/ansible/inventory.txt
+      - attach_workspace:
+          at: ~/
       - run:
           name: Install dependencies
           command: |
