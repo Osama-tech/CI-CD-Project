@@ -257,7 +257,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [frontend-build]
+          keys: [build-frontend]
       - run:
           name: Install dependencies
           command: |
@@ -326,6 +326,41 @@ jobs:
       - destroy_environment  
       - cancel_migrations
       
+  smoke-test:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get update -y
+            sudo apt-get install -y awscli
+      - run:
+          name: Backend smoke test.
+          command: |
+            cat ~/api_url.txt
+            export API_URL=$(cat ~/api_url.txt)
+            if curl -s "${API_URL}/api/status" | grep "ok"
+              then
+                  exit 0
+              else
+                  exit 1
+              fi
+      - run:
+          name: Frontend smoke test.
+          command: |
+              if curl -s http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com/#/employees | grep "Welcome"
+              then
+                exit 0
+              else
+                exit 1
+              fi
+      - destroy_environment  
+      - cancel_migrations
+      
           
 workflows:
   default:
@@ -356,3 +391,5 @@ workflows:
           requires: [run-migrations]
       - Deploy-Backend:
           requires: [run-migrations]
+      - smoke-test:
+          requires: [Deploy-Backend, deploy-frontend]
