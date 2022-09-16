@@ -353,8 +353,10 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/.circleci/ansible/inventory.txt
       - run:
           name: Install dependencies
           command: |
@@ -380,9 +382,11 @@ jobs:
               else
                 exit 1
               fi
-      - destroy_environment:
+      
+      - destroy_environment: 
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
           event: on_fail
+          
       - cancel_migrations:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
           event: on_fail
