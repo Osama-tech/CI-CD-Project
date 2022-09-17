@@ -373,10 +373,6 @@ jobs:
               --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --output text)
             export API_URL="http://${BACKEND_IP}:3030"
-          
-#             cat ~/api_url.txt
-#             export API_URL=$(cat ~/api_url.txt)
-
             echo "Api Url =>  ${API_URL}"
             if curl -s --head "${API_URL}/api/status" | grep "ok"
             then
@@ -384,6 +380,11 @@ jobs:
             else
                 return 1
             fi
+          
+#             cat ~/api_url.txt
+#             export API_URL=$(cat ~/api_url.txt)
+
+            
            
       - run:
           name: Frontend smoke test.
