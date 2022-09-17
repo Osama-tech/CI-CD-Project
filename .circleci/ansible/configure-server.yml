@@ -30,7 +30,11 @@
       raw: apk add --update python
       when: check_python.rc != 0
        
-
+    - name:  start app
+      command:  pm2 start main.js
+      args:
+        chdir: ~/backend/dist
+    
   # Get the environment variables from CircleCI and add to the EC2
   environment:
     - TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"
