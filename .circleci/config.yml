@@ -456,7 +456,14 @@ jobs:
          command: |
               sudo apt update
               sudo apt install awscli -y
-      - install_nodejs
+              
+      - run: 
+        name:  Install Node.JS 
+        command: | 
+           sudo apt update
+           sudo apt install nodejs
+           sudo apt install npm
+           
       - run:
           name: Save Old Workflow ID TO Kvdb.io
           command: |
