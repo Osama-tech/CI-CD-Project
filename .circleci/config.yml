@@ -296,10 +296,14 @@ jobs:
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             echo id: ${CIRCLE_WORKFLOW_ID:0:7}
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+            
+            
       - persist_to_workspace:
           root: ~/
           paths:
             - api_url.txt
+            
+            
       - destroy_environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
           event: on_fail
@@ -364,11 +368,14 @@ jobs:
       - run:
           name: Backend smoke test.
           command: |
-            export BACKEND_IP=$(aws ec2 describe-instances \
-              --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --output text)
-            export API_URL="http://${BACKEND_IP}:3030"
+#            export BACKEND_IP=$(aws ec2 describe-instances \
+#              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+#              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+#              --output text)
+#            export API_URL="http://${BACKEND_IP}:3030"
+            
+            cat ~/api_url.txt
+            export API_URL=$(cat ~/api_url.txt)
             echo "Api Url =>  ${API_URL}"
             if curl -s "${API_URL}/api/status" | grep "ok"
             then
