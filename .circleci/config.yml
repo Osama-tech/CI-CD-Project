@@ -356,7 +356,7 @@ jobs:
       
   smoke-test:
     docker:
-      - image: circleci/node:13.8.0
+      - image: alpine:latest
     steps:
       - checkout
       - attach_workspace:
@@ -381,9 +381,9 @@ jobs:
             echo "Api Url =>  ${API_URL}"
             if curl -s ${API_URL}/api/status | grep "ok"
             then
-                exit 0
+                return 0
             else
-                exit 1
+                return 1
             fi
           
 #             cat ~/api_url.txt
