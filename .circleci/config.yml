@@ -381,9 +381,9 @@ jobs:
             echo "Api Url =>  ${API_URL}"
             if curl -s ${API_URL}/api/status | grep "ok"
             then
-                return 0
+                exit 0
             else
-                return 1
+                exit 1
             fi
           
 #             cat ~/api_url.txt
