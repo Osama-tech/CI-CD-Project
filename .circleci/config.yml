@@ -427,7 +427,12 @@ jobs:
           paths:
             - OldWorkflowID.txt
       - destroy_environment  
-      - revert_migrations  
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+          event: on_fail
+          
+      - revert_migrations 
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+          event: on_fail
 
   cleanup:
     docker:
