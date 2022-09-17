@@ -376,7 +376,7 @@ jobs:
             cat frontend/.env
             export API_URL=$(cat ~/api_url.txt)
             echo "Api Url =>  ${API_URL}"
-            if curl -s --head ${API_URL}/api/status | grep "ok"
+            if curl -s ${API_URL}/api/status | grep "ok"
             then
                 return 0
             else
