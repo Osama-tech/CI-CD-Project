@@ -428,12 +428,22 @@ jobs:
       - run:
           name: Frontend smoke test.
           command: |
+#            URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com/#/employees"            
+#            echo ${URL} 
+#            if curl -s ${URL} | grep "Welcome"
+#            then
+#                # Change this to 0 after the job fails
+#              return 0
+#            else
+#              return 1
+#            fi
+            
             URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com/#/employees"            
             echo ${URL} 
             if curl -s ${URL} | grep "Welcome"
             then
                 # Change this to 0 after the job fails
-              return 0
+              return 1
             else
               return 1
             fi
@@ -507,6 +517,7 @@ jobs:
             export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
                     --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
             echo Stack names: "${STACKS[@]}" 
+            
       - run:
           name: Remove old stacks and files
           command: |
@@ -516,7 +527,8 @@ jobs:
               aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}"
               #aws s3 rm s3://udapeople-${OldWorkflowID} --recursive
             fi
-            
+        
+        
 workflows:
   default:
     jobs:
