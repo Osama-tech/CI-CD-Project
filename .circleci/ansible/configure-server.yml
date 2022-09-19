@@ -27,8 +27,11 @@
       
     - name: "install python for Ansible"
 #       raw: yum -y install python
-      raw: apk add --update python
-      when: check_python.rc != 0
+#       raw: apk add --update python
+#       when: check_python.rc != 0
+      apt: 
+        name: python3.8
+        state: present
        
     - name:  start app
       command:  pm2 start main.js
@@ -49,6 +52,9 @@
     - TYPEORM_MIGRATIONS_DIR: "{{ lookup('env', 'TYPEORM_MIGRATIONS_DIR')}}"
 
   roles:
+    - configure-server
+    - configure-prometheus-node-exporter
+    
 #     - install python for Ansible
 #     - update/upgrade packages
 #     - install nodejs, npm, and pm2
