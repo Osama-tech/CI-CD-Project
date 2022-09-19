@@ -324,8 +324,9 @@ jobs:
           keys: [backend-build]
       - add_ssh_keys:
           fingerprints: ["c5:65:97:43:aa:db:fe:be:b9:87:24:5e:83:30:da:a6"]
+          
       - attach_workspace:
-          root: ~/    
+          at: ~/    
 
       - run:
           name: Install dependencies
