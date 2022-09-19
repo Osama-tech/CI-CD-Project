@@ -523,8 +523,8 @@ jobs:
 workflows:
   default:
     jobs:
-     # - notify:
-      #    context: CICD slack-secrets
+      - notify:
+          context: CICD slack-secrets
       - build-frontend
       - build-backend
       - test-frontend:
